@@ -22,8 +22,6 @@
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
-		F7223FDE152F82560076457E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F7223FDB152F82560076457E /* main.cpp */; };
-		F7223FDF152F82560076457E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F7223FDC152F82560076457E /* testApp.cpp */; };
 		F722401B152F98600076457E /* assimp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7224015152F98600076457E /* assimp.a */; };
 		F722401C152F98600076457E /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F7224019152F98600076457E /* ofxAssimpModelLoader.cpp */; };
 		F7474381152A55AE005945AC /* ofxOpenNI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F747435E152A55AE005945AC /* ofxOpenNI.cpp */; };
@@ -42,6 +40,8 @@
 		F74743A3152A55E1005945AC /* libXnVFeatures_1_5_2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7474395152A55E1005945AC /* libXnVFeatures_1_5_2.dylib */; };
 		F74743A4152A55E1005945AC /* libXnVHandGenerator_1_5_2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7474396152A55E1005945AC /* libXnVHandGenerator_1_5_2.dylib */; };
 		F74743A5152A55E1005945AC /* libXnVNite_1_5_2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7474397152A55E1005945AC /* libXnVNite_1_5_2.dylib */; };
+		F77EC0B315361B4F0074BA76 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F77EC0B015361B4F0074BA76 /* main.cpp */; };
+		F77EC0B415361B4F0074BA76 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F77EC0B115361B4F0074BA76 /* testApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,9 +93,6 @@
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
-		F7223FDB152F82560076457E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "src-UserAndCloud-Simple/main.cpp"; sourceTree = SOURCE_ROOT; };
-		F7223FDC152F82560076457E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testApp.cpp; path = "src-UserAndCloud-Simple/testApp.cpp"; sourceTree = SOURCE_ROOT; };
-		F7223FDD152F82560076457E /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = "src-UserAndCloud-Simple/testApp.h"; sourceTree = SOURCE_ROOT; };
 		F7223FEA152F98600076457E /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		F7223FEE152F98600076457E /* aiAnim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aiAnim.h; sourceTree = "<group>"; };
 		F7223FEF152F98600076457E /* aiAssert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aiAssert.h; sourceTree = "<group>"; };
@@ -286,6 +283,9 @@
 		F7474395152A55E1005945AC /* libXnVFeatures_1_5_2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libXnVFeatures_1_5_2.dylib; sourceTree = "<group>"; };
 		F7474396152A55E1005945AC /* libXnVHandGenerator_1_5_2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libXnVHandGenerator_1_5_2.dylib; sourceTree = "<group>"; };
 		F7474397152A55E1005945AC /* libXnVNite_1_5_2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libXnVNite_1_5_2.dylib; sourceTree = "<group>"; };
+		F77EC0B015361B4F0074BA76 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F77EC0B115361B4F0074BA76 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
+		F77EC0B215361B4F0074BA76 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,9 +395,9 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				F7223FDB152F82560076457E /* main.cpp */,
-				F7223FDC152F82560076457E /* testApp.cpp */,
-				F7223FDD152F82560076457E /* testApp.h */,
+				F77EC0B015361B4F0074BA76 /* main.cpp */,
+				F77EC0B115361B4F0074BA76 /* testApp.cpp */,
+				F77EC0B215361B4F0074BA76 /* testApp.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -858,9 +858,9 @@
 			files = (
 				F7474381152A55AE005945AC /* ofxOpenNI.cpp in Sources */,
 				F7474382152A55AE005945AC /* ofxOpenNITypes.cpp in Sources */,
-				F7223FDE152F82560076457E /* main.cpp in Sources */,
-				F7223FDF152F82560076457E /* testApp.cpp in Sources */,
 				F722401C152F98600076457E /* ofxAssimpModelLoader.cpp in Sources */,
+				F77EC0B315361B4F0074BA76 /* main.cpp in Sources */,
+				F77EC0B415361B4F0074BA76 /* testApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
