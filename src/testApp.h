@@ -27,9 +27,11 @@ public:
     
     ofTrueTypeFont verdana;
     
-    ofPoint myJointPost;
+    ofPoint _HEAD;
+    ofPoint _ARM;
     
     ofxAssimpModelLoader model;
+    ofxAssimpModelLoader arm;
     
     ofVboMesh mesh;
     ofPoint position;

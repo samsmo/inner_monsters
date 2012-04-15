@@ -10,7 +10,7 @@ void testApp::setup() {
     ofDisableArbTex();
     ofSetLogLevel(OF_LOG_NOTICE);
     
-    if(model.loadModel("testmonster.dae",true)){
+    if(model.loadModel("testmonster.dae",true) && arm.loadModel("leg.dae",true)){
         model.calculateDimensions();
     }
     
@@ -56,16 +56,26 @@ void testApp::draw(){
     int numUsers = openNIDevice.getNumTrackedUsers();
     if(numUsers > 0){
         ofxOpenNIUser & user = openNIDevice.getTrackedUser(0);
-        myJointPost = user.getJoint(JOINT_LEFT_HAND).getProjectivePosition();
+        
+            _HEAD = user.getJoint(JOINT_HEAD).getProjectivePosition();
+            _ARM = user.getJoint(JOINT_LEFT_FOOT).getProjectivePosition();
+        
+        //tranlation code for different limbs / models
+        glPushMatrix();
+            glTranslatef(_HEAD.x, _HEAD.y, -_HEAD.z);
+            ofRotateY(90);
+            model.drawFaces();
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(_ARM.x,_ARM.y, -_ARM.z);
+            ofRotateY(90);
+            arm.drawFaces();
+        glPopMatrix();
+           
+    
     } 
 
-    ofPushMatrix();
-    glTranslatef(myJointPost.x, myJointPost.y, -myJointPost.z);
-    //glTranslatef(mouseX,mouseY,0);
-    ofRotateY(90);
-    model.drawFaces();
-    ofPopMatrix();
-    
     light.disable();
 	glDisable(GL_DEPTH_TEST);
 	ofDisableLighting();
