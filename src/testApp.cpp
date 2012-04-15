@@ -2,30 +2,19 @@
 
 //--------------------------------------------------------------
 void testApp::setup() {
-    
+    ofSetFrameRate(60);
+    ofSetSmoothLighting(true);
+	light.setAmbientColor(ofColor(.0, .0, .0));
+	light.setDiffuseColor(ofColor(.0, .0, .0));
+	light.setSpecularColor(ofColor(255, .1, .1));
+    ofDisableArbTex();
     ofSetLogLevel(OF_LOG_NOTICE);
+    
     if(model.loadModel("testmonster.dae",true)){
-        model.setScale(.25,.25,.25);
-    	model.setPosition(ofGetWidth()/4, ofGetHeight()/4 , 0);
-        //model.setRotation(1, -90, 0, 0, 0);
-        
-    	mesh = model.getMesh(0);
-    	position = model.getPosition();
-    	normScale = model.getNormalizedScale();
-    	scale = model.getScale();
-    	sceneCenter = model.getSceneCenter();
-    	material = model.getMaterialForMesh(0);
-        tex = model.getTextureForMesh(0);
+        model.calculateDimensions();
     }
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-	glEnable(GL_DEPTH_TEST);
     
-    rotationTest = 0;
-    
-    //some model / light stuff
-    glShadeModel(GL_SMOOTH);
-    light.enable();
-    
+    ofEnableSmoothing();
     openNIDevice.setup();
     //openNIDevice.setLogLevel(OF_LOG_VERBOSE);
     openNIDevice.addDepthGenerator();
@@ -43,7 +32,6 @@ void testApp::setup() {
 
 	openNIDevice.start();
 
-    verdana.loadFont(ofToDataPath("verdana.ttf"), 24);
 }
 
 //--------------------------------------------------------------
@@ -54,48 +42,33 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofSetColor(255, 255, 255);
+    glEnable(GL_DEPTH_TEST);
+    glShadeModel(GL_SMOOTH);
+    ofEnableLighting();
+	light.enable();
+    light.setPosition(0, 0, 150);
     
-    //openNIDevice.drawDebug(); // debug draw does the equicalent of the commented methods below
+    ofBackground(50, 50, 50, 0);
+    ofSetColor(255, 255, 255, 255);
     openNIDevice.drawDepth(0, 0, 0, 0);
-    //openNIDevice.drawImage(640, 0, 640, 480);
-    openNIDevice.drawSkeletons(0, 0, 640, 480);
-    // do some drawing of user clouds and masks
-    ofPushMatrix();
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    int numUsers = openNIDevice.getNumTrackedUsers();
-    for (int nID = 0; nID < numUsers; nID++){
-        ofxOpenNIUser & user = openNIDevice.getTrackedUser(nID);
-        myJointPost = user.getJoint(JOINT_HEAD).getProjectivePosition();
-         
-        ofSetColor(255,255,0);
-        //user.drawMask();
-        ofPushMatrix();
-        ofTranslate(320, 240, -1000);
-        user.drawPointCloud();
-        ofPopMatrix();
-    }
-    ofDisableBlendMode();
-    ofPopMatrix();
-    
-    ofSetColor(0, 255, 0);
-	string msg = " MILLIS: " + ofToString(ofGetElapsedTimeMillis()) + " FPS: " + ofToString(ofGetFrameRate());
-	verdana.drawString(msg, 20, 506); 
-    
-    ofPushMatrix();
-    glTranslatef(myJointPost.x, myJointPost.y/2, -myJointPost.z/8);
-    
-    rotationTest++;
-    ofRotate(rotationTest);
+    openNIDevice.drawSkeletons(0,0,640*2,540*2);
 
+    int numUsers = openNIDevice.getNumTrackedUsers();
+    if(numUsers > 0){
+        ofxOpenNIUser & user = openNIDevice.getTrackedUser(0);
+        myJointPost = user.getJoint(JOINT_LEFT_HAND).getProjectivePosition();
+    } 
+
+    ofPushMatrix();
+    glTranslatef(myJointPost.x, myJointPost.y, -myJointPost.z);
+    //glTranslatef(mouseX,mouseY,0);
+    ofRotateY(90);
     model.drawFaces();
     ofPopMatrix();
     
-    glPushAttrib(GL_ALL_ATTRIB_BITS);
-    glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-    glEnable(GL_NORMALIZE);
-    //glEnable(GL_CULL_FACE);
-    
+    light.disable();
+	glDisable(GL_DEPTH_TEST);
+	ofDisableLighting();
 }
 
 //--------------------------------------------------------------
