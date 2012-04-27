@@ -73,6 +73,7 @@ public:
      *  List of bone names  string( mBones[ j ]->mName.data )
      */
     vector<string>                              mBoneNames;
+    vector<string> something;
     /*
      *  Bool to check if bone name lists are ready or not.
      */
@@ -82,6 +83,7 @@ public:
     
     int pMouseY, pMouseX, pMouseZ;
     int pHeadY, pHeadX, pHeadZ;
+    int pArmY, pArmX, pArmZ;
     
 };
 

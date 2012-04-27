@@ -23,6 +23,8 @@ void testApp::setup() {
     ofEnableSeparateSpecularLight(); 
     pHeadY = 0;
     pHeadX = 0;
+    pArmY = 0;
+    pArmX = 0;
     openNIDevice.setup();
     //openNIDevice.setLogLevel(OF_LOG_VERBOSE);
     openNIDevice.addDepthGenerator();
@@ -52,15 +54,19 @@ void testApp::update(){
         ofxOpenNIUser & user = openNIDevice.getTrackedUser(0);
         
         _HEAD = user.getJoint(JOINT_HEAD).getProjectivePosition();
-        _ARM = user.getJoint(JOINT_LEFT_FOOT).getProjectivePosition();
+        _ARM = user.getJoint(JOINT_LEFT_ELBOW).getProjectivePosition();
         
-        model.translateBone(model.getAssimpScene()->mMeshes[0]->mBones[2], 0.0, 5*(pHeadY- int(_HEAD.y))/float(ofGetHeight()), -5*(pHeadX-int(_HEAD.x))/float(ofGetWidth()));
+        model.translateBone(model.getAssimpScene()->mMeshes[1]->mBones[0], 0.0, 5*(pHeadY- int(_HEAD.y))/float(ofGetHeight()), -5*(pHeadX-int(_HEAD.x))/float(ofGetWidth()));
+        //model.translateBone(model.getAssimpScene()->mMeshes[3]->mBones[7], 0.0, 5*(pArmY- int(_ARM.y))/float(ofGetHeight()), -5*(pArmX-int(_ARM.x))/float(ofGetWidth()));
         
         pMouseX = mouseX;
         pMouseY = mouseY;
         
         pHeadY = _HEAD.y;
         pHeadX = _HEAD.x;
+        pArmY=_ARM.y;
+        pArmX=_ARM.x;
+        
         //pMouseZ = mouseZ;
     }
 		//	model.rotateBone(model.getAssimpScene()->mMeshes[cualMesh]->mBones[cualBone], 0.0, 5*(pMouseY- mouseY)/float(ofGetHeight()), 5*(pMouseX-mouseX)/float(ofGetWidth()));
@@ -129,6 +135,9 @@ void testApp::keyPressed(int key){
             cout << 5*(pMouseY- mouseY)/float(ofGetHeight())<<"mouse Y"<<endl;
             cout << 5*(pHeadY - _HEAD.y)/float(ofGetHeight())<<"head Y"<<endl;
             break;
+        case 't':
+            listBoneNames();
+            break;
         
     }
 }
@@ -162,6 +171,72 @@ void testApp::mouseReleased(int x, int y, int button){
 void testApp::windowResized(int w, int h){
 
 }
+
+void testApp::listBoneNames()
+{
+    const aiScene*  aiScene = model.getAssimpScene();
+    
+    for ( unsigned int i = 0; i < aiScene->mNumMeshes; i++ )
+    {
+        for ( unsigned int j = 0; j < aiScene->mMeshes[ i ]->mNumBones; j++ )
+        {
+            cout << "ofxAssimpNISync"
+                         << "Listing Mesh index "
+                         << ofToString(i)
+                         << " name "
+                         << string( aiScene->mMeshes[ i ]->mName.data )
+                         << " Bone Name : "
+                         << string( aiScene->mMeshes[ i ]->mBones[ j ]->mName.data ) 
+            <<endl;
+        }
+    }
+}
+
+const vector<string>& testApp::getBoneNames()
+{
+    if ( !mBoneListCreated )
+    {
+        buildBoneNameList();
+    }
+    
+    return mBoneNames;
+}
+
+aiBone* testApp::getBoneNamed(aiMesh *mesh, string boneName)
+{    
+    for ( unsigned int i = 0; i < mesh->mNumBones; i++ )
+    {
+        if ( string( mesh->mBones[ i ]->mName.data ) == boneName )
+        {
+            return mesh->mBones[ i ];
+        }
+    }
+    
+    return NULL;
+}
+
+void testApp::buildBoneNameList()
+{
+    if ( !mSetup )
+    {
+        ofLog( OF_LOG_ERROR, "ofxAssimpNISync Cannot build bone name list. Setup must be called first!" );
+        
+        return;
+    }
+    
+    mBoneListCreated    = true;
+    
+    const aiScene*  aiScene = model.getAssimpScene();
+    
+    for ( unsigned int i = 0; i < aiScene->mNumMeshes; i++ )
+    {
+        for ( unsigned int j = 0; j < aiScene->mMeshes[ i ]->mNumBones; j++ )
+        {
+            mBoneNames.push_back( string( aiScene->mMeshes[ i ]->mBones[ j ]->mName.data ) );
+        }
+    }
+}
+
 
 void SkeletonDrawer::translateBone(aiBone *bone, float x, float y, float z){
 	
